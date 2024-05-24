@@ -11,4 +11,8 @@
     <color name="second">#444444</color>
     <color name="third">#DA0037</color>
     <color name="fourth">#EDEDED</color>
+
+    <color name="background">#e4e3ce</color>
+    <color name="bttncolor">#8f853c</color>
+    <color name="txtcolor">#54442c</color>
 </resources>

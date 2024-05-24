@@ -80,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void toDoList () {
-        modelToDos.add(new ModelToDo("Pemograman Mobile", "12/04/2022"));
-        modelToDos.add(new ModelToDo("IESI", "14/04/2022"));
+        modelToDos.add(new ModelToDo("TEST", "05/24/2024"));
     }
 }

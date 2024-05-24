@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="15dp"
-    app:cardBackgroundColor="@color/second"
+    app:cardBackgroundColor="@color/white"
     android:layout_marginBottom="20dp"
     android:layout_marginHorizontal="15dp"
     android:layout_width="match_parent"
@@ -20,10 +20,10 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:text="Bersih - bersih"
+            android:text="Test"
             android:fontFamily="sans-serif-medium"
             android:textSize="20dp"
-            android:textColor="@color/fourth" />
+            android:textColor="@color/txtcolor" />
 
         <ImageView
             android:id="@+id/btt_del"
@@ -40,10 +40,10 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/tv_task"
             app:layout_constraintStart_toStartOf="parent"
-            android:text="11 Apr 2022"
+            android:text="May 24, 2024"
             android:fontFamily="sans-serif"
             android:textSize="15dp"
-            android:textColor="@color/fourth"
+            android:textColor="@color/txtcolor"
             android:layout_marginTop="5dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
