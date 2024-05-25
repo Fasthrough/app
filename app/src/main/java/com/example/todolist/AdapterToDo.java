@@ -17,16 +17,16 @@ public class AdapterToDo extends RecyclerView.Adapter<AdapterToDo.ViewHolderToDo
     private Context context;
     private OnItemClickListener listener;
 
+    public AdapterToDo(Context context, ArrayList<ModelToDo> modelToDo) {
+        this.context = context;
+        this.modelToDos = modelToDo;
+    }
+
     @NonNull
     @Override
     public ViewHolderToDo onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_todo, parent, false);
-        ViewHolderToDo vhd =new ViewHolderToDo(view, listener);
-        return vhd;
-    }
-
-    public AdapterToDo(Context context, ArrayList<ModelToDo> modelToDo) {
-        modelToDos = modelToDo;
+        return new ViewHolderToDo(view, listener);
     }
 
     @Override
@@ -44,6 +44,7 @@ public class AdapterToDo extends RecyclerView.Adapter<AdapterToDo.ViewHolderToDo
     public class ViewHolderToDo extends RecyclerView.ViewHolder {
         public TextView task, date;
         public ImageView del;
+
         public ViewHolderToDo(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
             task = itemView.findViewById(R.id.tv_task);
@@ -68,7 +69,7 @@ public class AdapterToDo extends RecyclerView.Adapter<AdapterToDo.ViewHolderToDo
         void onItemClick(int position);
     }
 
-    public void setOnItemClickListener (OnItemClickListener listeners) {
-        listener = listeners;
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 }

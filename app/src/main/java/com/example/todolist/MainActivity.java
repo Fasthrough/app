@@ -24,14 +24,18 @@ public class MainActivity extends AppCompatActivity {
     private Button bttSave;
     private LinearLayout layoutAdd;
     private EditText task, date;
+    private DatabaseManager dbManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        dbManager = new DatabaseManager(this);
+        dbManager.open();
+
         build();
-        toDoList();
+        loadToDoList();
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapterToDo);
@@ -39,22 +43,26 @@ public class MainActivity extends AppCompatActivity {
         bttAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (recyclerView.getVisibility() == View.VISIBLE){
-                    recyclerView.setVisibility(View.GONE);
-                    layoutAdd.setVisibility(View.VISIBLE);
-                }
+                recyclerView.setVisibility(View.GONE);
+                layoutAdd.setVisibility(View.VISIBLE);
             }
         });
 
         bttSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (task.getText().toString().equals("") || date.getText().toString().equals("")) {
-                    Toast.makeText(MainActivity.this, "please fill entire form", Toast.LENGTH_SHORT).show();
+                if (task.getText().toString().isEmpty() || date.getText().toString().isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Please fill the entire form", Toast.LENGTH_SHORT).show();
                 } else {
-                    modelToDos.add(new ModelToDo(task.getText().toString(), date.getText().toString()));
+                    String taskText = task.getText().toString();
+                    String dateText = date.getText().toString();
+                    ModelToDo modelToDo = new ModelToDo(taskText, dateText);
+                    dbManager.insertTask(modelToDo);
+                    loadToDoList();
                     recyclerView.setVisibility(View.VISIBLE);
                     layoutAdd.setVisibility(View.GONE);
+                    task.setText("");
+                    date.setText("");
                 }
             }
         });
@@ -62,8 +70,9 @@ public class MainActivity extends AppCompatActivity {
         adapterToDo.setOnItemClickListener(new AdapterToDo.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                modelToDos.remove(position);
-                adapterToDo.notifyItemRemoved(position);
+                ModelToDo modelToDo = modelToDos.get(position);
+                dbManager.deleteTask(modelToDo.getId());
+                loadToDoList();
             }
         });
     }
@@ -75,11 +84,19 @@ public class MainActivity extends AppCompatActivity {
         bttAdd = findViewById(R.id.btt_addToDo);
         bttSave = findViewById(R.id.btt_save);
         layoutAdd = findViewById(R.id.layout_add);
-        task  = findViewById(R.id.et_task);
+        task = findViewById(R.id.et_task);
         date = findViewById(R.id.et_date);
     }
 
-    public void toDoList () {
-        modelToDos.add(new ModelToDo("TEST", "05/24/2024"));
+    private void loadToDoList() {
+        modelToDos.clear();
+        modelToDos.addAll(dbManager.getAllTasks());
+        adapterToDo.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dbManager.close();
     }
 }

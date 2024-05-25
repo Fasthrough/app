@@ -3,12 +3,12 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 34 // Update compileSdk to 34
 
     defaultConfig {
         applicationId "com.example.todolist"
         minSdk 21
-        targetSdk 32
+        targetSdk 34 // Update targetSdk to 34
         versionCode 1
         versionName "1.0"
 
@@ -28,7 +28,8 @@ android {
 }
 
 dependencies {
-
+    implementation("androidx.sqlite:sqlite-android:2.5.0-alpha02")
+    implementation("androidx.sqlite:sqlite-ktx:2.4.0")
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.5.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
